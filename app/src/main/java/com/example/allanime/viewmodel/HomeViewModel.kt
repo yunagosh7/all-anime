@@ -7,10 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.allanime.datamodels.Anime
 import com.example.allanime.datamodels.AnimeTopList
+import com.example.allanime.network.AnimeApi
 import com.example.allanime.repository.AnimeRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class HomeViewModel : ViewModel() {
     private val animeRepository = AnimeRepository()
@@ -27,7 +26,18 @@ class HomeViewModel : ViewModel() {
                 Log.d("HomeViewModel", "Error: ${e.message}")
             }
         }
+    }
 
+    fun getMangaTop() {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val result = animeRepository.getMangaTop()
+                _animeList.postValue(result)
+            } catch (e: Exception) {
+                Log.d("HomeViewModel", "Error: ${e.message}")
+            }
+        }
     }
 
 }

@@ -14,8 +14,12 @@ class AnimeListViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val ivImage = view.findViewById<ImageView>(R.id.iv_anime_image)
     val tvName = view.findViewById<TextView>(R.id.tv_anime_name)
 
-    fun bind(anime: Anime) {
+    fun bind(anime: Anime, onItemClick: (String, String, String) -> Unit) {
         Picasso.get().load(anime.images.jpg.imageUrl).into(ivImage)
         tvName.text = anime.name
+
+        itemView.setOnClickListener {
+            onItemClick(anime.id.toString(), anime.name, anime.images.jpg.imageUrl)
+        }
     }
 }

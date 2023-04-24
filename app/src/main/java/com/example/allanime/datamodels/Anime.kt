@@ -3,8 +3,9 @@ package com.example.allanime.datamodels
 import com.google.gson.annotations.SerializedName
 
 data class Anime(
+    @SerializedName("mal_id") val id: Int,
     @SerializedName("title") val name: String,
-    @SerializedName("images") val images: AnimeImage
+    @SerializedName("images") val images: AnimeImage,
 )
 
 
