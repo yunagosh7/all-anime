@@ -1,18 +1,15 @@
 package com.example.allanime.viewmodel
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.allanime.database.AnimeDatabase
 import com.example.allanime.datamodels.Anime
-import com.example.allanime.datamodels.AnimeTopList
-import com.example.allanime.network.AnimeApi
 import com.example.allanime.repository.AnimeRepository
 import kotlinx.coroutines.*
 
-class HomeViewModel : ViewModel() {
-    private val animeRepository = AnimeRepository()
+class HomeViewModel(application: Application) : ViewModel() {
+    private val animeRepository = AnimeRepository(AnimeDatabase.getInstance(application.applicationContext))
 
     private var _animeList = MutableLiveData<List<Anime>>()
     val animeList: LiveData<List<Anime>> = _animeList
@@ -40,4 +37,14 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+}
+
+class HomeViewModelFactory(val application: Application) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return HomeViewModel(application) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
 }

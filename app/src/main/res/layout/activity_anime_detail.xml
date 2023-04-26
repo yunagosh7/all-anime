@@ -111,15 +111,29 @@
                 app:layout_constraintTop_toBottomOf="@id/linear_info"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
-            
 
-<!--            <TextView-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:maxLines="5"-->
-<!--                tools:text="aisdpo aispdi dipoasi dipo"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/rv_anime_genres"-->
 
+            <TextView
+                android:id="@+id/tv_detail_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="5"
+                tools:text="aisdpo aispdi dipoasi dipo"
+                app:layout_constraintTop_toBottomOf="@id/rv_anime_genres"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_add_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:src="@drawable/ic_add_favorite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="60dp"
+                android:backgroundTint="#2F6ADD"
+                app:tint="@color/white"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,5 +1,6 @@
 package com.example.allanime.datamodels
 
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
 data class Anime(

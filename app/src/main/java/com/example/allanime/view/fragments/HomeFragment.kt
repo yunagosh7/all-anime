@@ -19,12 +19,19 @@ import com.example.allanime.network.AnimeApi
 import com.example.allanime.view.activities.AnimeDetailActivity
 import com.example.allanime.viewmodel.AnimeDetailViewModel
 import com.example.allanime.viewmodel.HomeViewModel
+import com.example.allanime.viewmodel.HomeViewModelFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by lazy {
+        val activity = requireNotNull(activity) {
+            "You can only access the viewModel after onActivityCreated()"
+        }
+        ViewModelProvider(this, HomeViewModelFactory(activity.application)).get(HomeViewModel::class.java)
+    }
+
     private lateinit var animesAdapter: AnimeListAdapter
     private lateinit var binding: FragmentHomeBinding
 
@@ -32,7 +39,6 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -93,6 +99,7 @@ class HomeFragment : Fragment() {
             binding.rvAnimeList.adapter = animesAdapter
             binding.rvAnimeList.visibility = View.VISIBLE
         }
+        categorySelected = "manga"
     }
 
     private fun changeToAnime() {
@@ -104,6 +111,7 @@ class HomeFragment : Fragment() {
             binding.rvAnimeList.swapAdapter(animesAdapter, true)
             binding.rvAnimeList.visibility = View.VISIBLE
         }
+        categorySelected = "anime"
 
     }
 
